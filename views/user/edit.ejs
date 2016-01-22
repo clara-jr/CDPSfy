@@ -1,0 +1,9 @@
+<div class="container">
+  <form action="/user/<%= user.id %>?_method=put" method="post" class="form-horizontal" role="form">
+    <p>Editar información de la cuenta:</p>      
+    <% include _form.ejs %>
+  </form>
+  <form method="post" action="/user/<%= user.id %>?_method=delete">
+    <button class="btn btn-danger" type="submit" onClick="return confirm('Confirmación para borrar cuenta: <%= user.username %>');">Eliminar cuenta</button>
+  </form>
+</div>

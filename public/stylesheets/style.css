@@ -1,0 +1,108 @@
+body {
+  	padding: 50px;
+  	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+	background: url('http://www.bsmo.es/imag/index/001fondo.jpg') no-repeat center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+a:hover {
+  color: #00B7FF;/* #5bc0de;*/
+  text-decoration: none;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+.glyphicon {
+	padding-right: 10px;
+}
+
+.navbar-brand {
+	padding-right: 35px;
+	margin-left: 15px;
+	background-image: url('http://www.vectorportal.com/img_novi/s-musicicon_5250.jpg');
+	-webkit-background-size: contain;
+	-moz-background-size: contain;
+	-o-background-size: contain;
+	background-size: contain;
+}
+
+.jumbotron {
+	margin-top: 20px;
+	padding: 20px 20px;
+	background: rgba(0,0,0,.08);
+	text-align: center;
+}
+
+.row {
+	padding-top: 15px;
+}
+
+.track {
+	width: 300px;
+	height: 200px;
+	padding-top: 50px;
+	text-decoration: none;
+	text-align: center;
+}
+
+.track_playing {
+	width: 500px;
+	height: 500px;
+	padding-right: 100px;
+	padding-left: 100px;
+}
+
+.track_playing button {
+	margin-top: 50px;
+}
+
+.track p {
+	padding-top: 20px;
+	text-align: center;
+}
+
+.track img {
+	/*width: 60px;*/
+	height: 60px;
+	border: 1px groove black;
+	padding: 5px;
+}
+
+.track_playing img {
+	/*width: 200px;*/
+	height: 200px;
+	border: 1px groove black;
+	padding: 10px;
+}
+
+.track audio {
+	width: 100%;
+}
+
+.btn {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	font-size: 18px;
+}
+
+/*.btn-primary, .btn-primary:focus {
+    background-color: #C9C9C9;
+    border-color: #A3A3A3;
+    color: #333;
+}
+.btn-primary:hover, .btn-primary:hover:focus {
+    background-color: #00B7FF;
+    border-color: #A3A3A3;
+}*/
+
+input {
+	padding: 10px 10px 10px;
+	margin-left: auto;
+	margin-right: auto;
+}

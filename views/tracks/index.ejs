@@ -1,0 +1,16 @@
+<div class="container">
+	<div class="row">
+
+	<%for (var t in tracks) {%>
+
+		<div class="col-xs-12 col-sm-6 col-md-3">
+			<a class="track" href='/tracks/<%=tracks[t].id%>'>
+				<img src="<%=tracks[t].image%>">
+				<p><%=tracks[t].name%></p>
+			</a>
+		</div>
+
+	<%}%>
+
+	</div>
+</div>
