@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var multer  = require('multer');
-var upload = multer({dest: './uploads/'});
 
 var tracks_dir = process.env.TRACKS_DIR || './media/';
 
@@ -36,7 +35,7 @@ router.get('/', function(req, res) {
 router.get('/tracks', trackController.list);
 router.get('/tracks/new', sessionController.loginRequired, trackController.new);
 router.get('/tracks/:trackId(\\d+)', trackController.show);
-router.post('/tracks', upload.array('track', 2), sessionController.loginRequired, trackController.create);
+router.post('/tracks', multer({inMemory: true}), sessionController.loginRequired, trackController.create);
 router.delete('/tracks/:trackId(\\d+)', sessionController.loginRequired, trackController.ownershipRequired, trackController.destroy);
 
 // Definición de rutas de /lists

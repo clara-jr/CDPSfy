@@ -28,6 +28,7 @@ exports.load = function(req, res, next, trackId) {
 
 // Devuelve una lista de las canciones disponibles y sus metadatos
 // GET /tracks
+// GET /users/:userId/tracks req.user se crea en autoload de usuarios
 // GET /lists/:listId/tracks req.list se crea en autoload de listas
 exports.list = function (req, res, next) {
 	var options = {};
@@ -60,25 +61,27 @@ exports.show = function (req, res) {
 // - Escribir en tracks.cdpsfy.es el fichero de audio contenido en req.files.track.buffer
 // - Escribir en el registro la verdadera url generada al añadir el fichero en el servidor tracks.cdpsfy.es
 exports.create = function (req, res) {
-	var track = req.files[0];
+	var track = req.files.track;
 	console.log('Nuevo fichero de audio. Datos: ', track);
-	var id = track.filename.split('.')[0];
+	var id = track.name.split('.')[0];
 	var name = track.originalname.split('.')[0];
 
 	// Aquí debe implementarse la escritura del fichero de audio (track.buffer) en tracks.cdpsfy.es
-	// Copiamos el archivo a la carpeta definitiva de audios
-    fs.createReadStream('./uploads/'+id).pipe(fs.createWriteStream('./public/media/'+track.originalname)); 
-    // Borramos el archivo temporal creado
-    fs.unlink('./uploads/'+id);
 	// Esta url debe ser la correspondiente al nuevo fichero en tracks.cdpsfy.es
-	var url = '/media/'+track.originalname; 
-	if(req.files[1]){
-	    var image = req.files[1];
+	var url = '/media/'+track.originalname;
+	fs.writeFile("./public/media/"+track.originalname, track.buffer, function(err){
+		if (err) throw err;
+        console.log("Track Saved!");
+	});
+
+	if(req.files.img){
+	    var image = req.files.img;
 	    console.log('Nuevo fichero de audio. Datos: ', image);
-	    var id = image.filename.split('.')[0];
 	    var urlimage = '/images/'+image.originalname;
-	    fs.createReadStream('./uploads/'+id).pipe(fs.createWriteStream('./public'+urlimage));
-	    fs.unlink('./uploads/'+id);
+		fs.writeFile("./public/images/"+image.originalname, image.buffer, function(err){
+			if (err) throw err;
+	        console.log("Img Saved!");
+		});
 	}
 	else {
 		urlimage = '/images/quaver3.png'
@@ -101,7 +104,7 @@ exports.create = function (req, res) {
 // Borra una canción (trackId) del registro de canciones 
 // TODO:
 // - Eliminar en tracks.cdpsfy.es el fichero de audio correspondiente a trackId
-exports.destroy = function (req, res) {
+exports.destroy = function (req, res, next) {
 	// Aquí debe implementarse el borrado del fichero de audio indetificado por trackId en tracks.cdpsfy.es
 	fs.unlink('./public'+req.track.url); 
 	if (req.track.image != '/images/quaver3.png') {
