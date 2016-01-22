@@ -25,11 +25,18 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
           <li><a href="/"><span class="glyphicon glyphicon-home"></span> CDPSfy</a></li>
-          <li><a href="/tracks"><span class="glyphicon glyphicon-music"></span> My tracks</a></li>
           <%if(!session.user){%>
+            <li><a href="/tracks"><span class="glyphicon glyphicon-music"></span>All Tracks</a></li>
             <li><a href="/user"><span class="glyphicon glyphicon-edit"></span>Sign up</a></li>
             <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
           <%}else{%>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-music"></span> Tracks <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/tracks">All Tracks</a></li>
+                <li><a href="/user/<%=session.user.id%>/tracks">My Tracks</a></li>
+              </ul>
+            </li>
             <li><a href="/tracks/new"><span class="glyphicon glyphicon-plus"></span> Upload new track</a></li>
             <li><a href="/user/<%=session.user.id%>/edit"><span class="glyphicon glyphicon-user"></span>Settings <%=session.user.username%></a></li>
             <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>

@@ -27,8 +27,14 @@ exports.load = function(req, res, next, trackId) {
 };
 
 // Devuelve una lista de las canciones disponibles y sus metadatos
-exports.list = function (req, res) {
-	models.Tracks.findAll().then(function(tracks) {
+// GET /tracks
+// GET /users/:userId/tracks
+exports.list = function (req, res, next) {
+	var options = {};
+	if(req.user){
+		options.where = {UserId: req.user.id}
+	} 
+	models.Tracks.findAll(options).then(function(tracks) {
 		res.render('tracks/index', {tracks: tracks});
 	}).catch(function(error) { next(error);})
 };
