@@ -16,13 +16,26 @@ var Tracks = sequelize.import(track_path);
 var user_path = path.join(__dirname,'user');
 var User = sequelize.import(user_path);
 
+// Importar definicion de la tabla de listas
+var list_path = path.join(__dirname,'list');
+var List = sequelize.import(list_path);
+
 // los tracks pertenecen a un usuario registrado
-Tracks.belongsTo(User);
+Tracks.belongsTo(User); // En Tracks tendremos UserId
 User.hasMany(Tracks);
+
+// las lists pertenecen a un usuario registrado
+List.belongsTo(User); // En List tendremos UserId
+User.hasMany(List);
+
+// los tracks pertenecen a una list y las lists tienen varios tracks
+Tracks.belongsTo(List); // En Tracks tendremos ListId
+List.hasMany(Tracks);
 
 // exportar tablas
 exports.Tracks = Tracks; //exportar definicion de la tabla Tracks
 exports.User = User;
+exports.List = List;
 
 // sequelize.sync() inicializa tabla de preguntas en DB
 sequelize.sync().then(function() {
@@ -63,7 +76,7 @@ sequelize.sync().then(function() {
                       UserId: '1'
                     }
                   ]
-              ).then(function(){console.log('Base de datos (tabla tacks) inicializada')});
+              ).then(function(){console.log('Base de datos (tabla tracks) inicializada')});
           };
         });
       });

@@ -1,0 +1,21 @@
+<div class="container">
+	<form method="post" action="/lists/new">
+					<span>Create a new list:</span>
+					<input style="margin-top: 10px;" type="text" class="form-control" id="list" name="list" size="30" placeholder="Name of the list">
+					<button class="btn btn-info" type="submit">
+					  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Create
+					</button>
+				</form>
+	<div class="row">
+	<%for (var t in lists) {%>
+
+		<div class="col-xs-12 col-sm-6 col-md-3">
+			<a class="track" href='/lists/<%=lists[t].id%>/tracks'>
+				<p><%=lists[t].listname%></p>
+			</a>
+		</div>
+
+	<%}%>
+
+	</div>
+</div>

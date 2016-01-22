@@ -1,14 +1,73 @@
 <div class="container">
 	<div class="row">
 
-	<%for (var t in tracks) {%>
+	<%if (lista) {%>
 
-		<div class="col-xs-12 col-sm-6 col-md-3">
-			<a class="track" href='/tracks/<%=tracks[t].id%>'>
-				<img src="<%=tracks[t].image%>">
-				<p><%=tracks[t].name%></p>
-			</a>
-		</div>
+		<%if (tracks.length > 0) {%>
+
+			<%for (var t in tracks) {%>
+
+				<div class="col-xs-12 col-sm-6 col-md-3">
+					<a class="track" href='/tracks/<%=tracks[t].id%>'>
+						<img src="<%=tracks[t].image%>">
+						<p><%=tracks[t].name%></p>
+					</a>
+					<%if(session.user && (session.user.isAdmin || (session.user && tracks[t].UserId === session.user.id))){%>
+						<form method="post" action="/lists/<%= tracks[t].id %>/delete?_method=put">
+							<span>Delete song from a list:</span>
+							<p></p>
+							<button class="btn btn-danger" type="submit">
+							  <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>Delete
+							</button>
+						</form>
+					<%}%>
+				</div>
+
+			<%}%>
+
+		<%} else {%>
+
+			<p>Ups! You haven't added any songs to this list yet!</p>
+
+		<%}%>
+
+	<%} else {%>
+
+		<%if (tracks.length > 0) {%>
+
+			<%for (var t in tracks) {%>
+
+				<div class="col-xs-12 col-sm-6 col-md-3">
+					<a class="track" href='/tracks/<%=tracks[t].id%>'>
+						<img src="<%=tracks[t].image%>">
+						<p><%=tracks[t].name%></p>
+					</a>
+					<%if(session.user && (session.user.isAdmin || (session.user && tracks[t].UserId === session.user.id))){%>
+						<%if (tracks[t].ListId) {%>
+							<form method="post" action="/lists/<%= tracks[t].id %>/delete?_method=put">
+								<span>Delete song from a list:</span>
+								<p></p>
+								<button class="btn btn-danger" type="submit">
+								  <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>Delete
+								</button>
+							</form>
+						<%} else {%>
+							<form method="post" action="/lists/<%= tracks[t].id %>?_method=put">
+								<span>Add song to the list:</span>
+								<input style="margin-top: 10px;" type="text" class="form-control" id="list" name="list" size="30" placeholder="Enter list">
+								<button class="btn btn-info" type="submit">
+								  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add
+								</button>
+							</form>
+						<%}%>
+					<%}%>
+				</div>
+
+			<%}%>
+
+		<%} else {%>
+			<p>Ups! You haven't uploaded any songs yet!</p>
+		<%}%>
 
 	<%}%>
 

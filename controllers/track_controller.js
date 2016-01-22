@@ -28,14 +28,19 @@ exports.load = function(req, res, next, trackId) {
 
 // Devuelve una lista de las canciones disponibles y sus metadatos
 // GET /tracks
-// GET /users/:userId/tracks
+// GET /lists/:listId/tracks req.list se crea en autoload de listas
 exports.list = function (req, res, next) {
 	var options = {};
+	var lista = false;
 	if(req.user){
 		options.where = {UserId: req.user.id}
-	} 
+	}
+	if(req.list){
+		options.where = {ListId: req.list.id}
+		lista = true;
+	}
 	models.Tracks.findAll(options).then(function(tracks) {
-		res.render('tracks/index', {tracks: tracks});
+		res.render('tracks/index', {tracks: tracks, lista: lista});
 	}).catch(function(error) { next(error);})
 };
 
@@ -62,11 +67,11 @@ exports.create = function (req, res) {
 
 	// Aquí debe implementarse la escritura del fichero de audio (track.buffer) en tracks.cdpsfy.es
 	// Copiamos el archivo a la carpeta definitiva de audios
-    fs.createReadStream('./uploads/'+id).pipe(fs.createWriteStream('./public/media/'+track.originalname)); // Cambiar ./public/media/ por /mnt/nas/
+    fs.createReadStream('./uploads/'+id).pipe(fs.createWriteStream('./public/media/'+track.originalname)); 
     // Borramos el archivo temporal creado
     fs.unlink('./uploads/'+id);
 	// Esta url debe ser la correspondiente al nuevo fichero en tracks.cdpsfy.es
-	var url = '/media/'+track.originalname; // Cambiar /media/ por /mnt/nas/
+	var url = '/media/'+track.originalname; 
 	if(req.files[1]){
 	    var image = req.files[1];
 	    console.log('Nuevo fichero de audio. Datos: ', image);
@@ -98,7 +103,7 @@ exports.create = function (req, res) {
 // - Eliminar en tracks.cdpsfy.es el fichero de audio correspondiente a trackId
 exports.destroy = function (req, res) {
 	// Aquí debe implementarse el borrado del fichero de audio indetificado por trackId en tracks.cdpsfy.es
-	fs.unlink('./public/media/'+req.track.name+'.mp3'); // Cambiar ./public/media/ por /mnt/nas/
+	fs.unlink('./public'+req.track.url); 
 	if (req.track.image != '/images/quaver3.png') {
 		fs.unlink('./public'+req.track.image);
 	}
