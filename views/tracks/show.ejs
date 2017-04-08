@@ -1,7 +1,7 @@
 <div class="container track track_playing">
 	<img src="<%= track.image %>">
 	<p><%= track.name %></p>
-	<audio src="<%= track.url %>" type="audio/mpeg" controls="controls"></audio>
+	<audio class="audio" src="<%= track.url %>" type="audio/mpeg" controls="controls"></audio>
 	<%if(session.user && (session.user.isAdmin || (session.user && track.UserId === session.user.id))){%>
 		<form method="post" action="/tracks/<%= track.id %>?_method=delete">
 		    <button class="btn btn-danger" type="submit" onClick="return confirm('Delete: <%=track.name%>. Are you sure? ');">Delete track</button>
