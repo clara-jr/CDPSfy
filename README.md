@@ -10,6 +10,9 @@
 <pre>
 git clone https://github.com/clara-jr/CDPSfy.git
 cd CDPSfy
+npm install sqlite3
+npm install --save mediaserver
+npm install foreman
 npm install
 </pre>
 
@@ -21,7 +24,7 @@ npm install
 ### How to run
 
 <pre>
-foreman start
+nf start
 </pre>
 
 #### Default music: http://www.bensound.com

@@ -1,13 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var multer  = require('multer');
-// npm install sqlite3
-// npm install mediaserver --save
-// npm install foreman
-// nf start
-// mediaserver: libreria con métodos que implementan la especificación de HTML5 sobre cómo hacer la comunicación de audio entre un servidor y un navegador (streaming)
-var path = require('path');
-var mediaserver = require('mediaserver');
 
 var tracks_dir = process.env.TRACKS_DIR || './media/';
 
@@ -38,10 +31,6 @@ router.get('/user/:userId(\\d+)/lists',  sessionController.loginRequired, userCo
 // Definición de rutas de /tracks
 router.get('/', function(req, res) {
   res.render('index');
-});
-router.get('/media/:nombre', function(req, res) {
-	var song = path.join(__dirname, '../public/media/'+req.params.nombre);
-	mediaserver.pipe(req, res, song);
 });
 router.get('/tracks', trackController.list);
 router.get('/tracks/new', sessionController.loginRequired, trackController.new);

@@ -8,6 +8,14 @@ var partials = require('express-partials');
 var methodOverride = require('method-override');
 var session = require('express-session');
 
+// npm install sqlite3
+// npm install mediaserver --save
+// npm install foreman
+// npm install
+// nf start
+// mediaserver: libreria con métodos que implementan la especificación de HTML5 sobre cómo hacer la comunicación de audio entre un servidor y un navegador (streaming)
+var mediaserver = require('mediaserver');
+
 var routes = require('./routes/index');
 
 var app = express();
@@ -41,6 +49,12 @@ app.use(function(req, res, next) {
   // Hacer visible req.session en las vistas
   res.locals.session = req.session;
   next();
+});
+
+app.get('/media/:nombre', function(req, res) {
+  console.log("PERFE");
+  var song = path.join(__dirname, 'media', req.params.nombre);
+  mediaserver.pipe(req, res, song);
 });
 
 app.use('/', routes);
