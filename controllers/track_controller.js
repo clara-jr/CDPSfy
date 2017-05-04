@@ -50,24 +50,19 @@ exports.new = function (req, res) {
 	res.render('tracks/new');
 };
 
-// Devuelve la vista de reproducción de una canción.
+// Devuelve la vista de reproducción de una canción
 // El campo track.url contiene la url donde se encuentra el fichero de audio
 exports.show = function (req, res) {
 	res.render('tracks/show', {track: req.track});
 };
 
-// Escribe una nueva canción en el registro de canciones.
-// TODO:
-// - Escribir en tracks.cdpsfy.es el fichero de audio contenido en req.files.track.buffer
-// - Escribir en el registro la verdadera url generada al añadir el fichero en el servidor tracks.cdpsfy.es
+// Escribe una nueva canción en el registro de canciones
 exports.create = function (req, res) {
 	var track = req.files.track;
 	console.log('Nuevo fichero de audio. Datos: ', track);
 	var id = track.name.split('.')[0];
 	var name = track.originalname.split('.')[0];
 
-	// Aquí debe implementarse la escritura del fichero de audio (track.buffer) en tracks.cdpsfy.es
-	// Esta url debe ser la correspondiente al nuevo fichero en tracks.cdpsfy.es
 	var url = '/media/'+track.originalname;
 	fs.writeFile("./public/media/"+track.originalname, track.buffer, function(err){
 		if (err) throw err;
@@ -87,7 +82,7 @@ exports.create = function (req, res) {
 		urlimage = '/images/quaver3.png'
 	}
 
-	// Escribe los metadatos de la nueva canción en el registro.
+	// Escribe los metadatos de la nueva canción en el registro
 	var track = models.Tracks.build(
 		{ name: name,
           url: url,
@@ -101,11 +96,9 @@ exports.create = function (req, res) {
 	})
 };
 
-// Borra una canción (trackId) del registro de canciones 
-// TODO:
-// - Eliminar en tracks.cdpsfy.es el fichero de audio correspondiente a trackId
+// Borra una canción (trackId) del registro de canciones
 exports.destroy = function (req, res, next) {
-	// Aquí debe implementarse el borrado del fichero de audio indetificado por trackId en tracks.cdpsfy.es
+	// Borrado del fichero de audio identificado por trackId
 	fs.unlink('./public'+req.track.url); 
 	if (req.track.image != '/images/quaver3.png') {
 		fs.unlink('./public'+req.track.image);

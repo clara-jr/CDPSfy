@@ -30,7 +30,7 @@ app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser('Tracks CDPSfy'));
+app.use(cookieParser('Tracks Musirac'));
 app.use(methodOverride('_method'));
 app.use(session());
 
@@ -52,7 +52,6 @@ app.use(function(req, res, next) {
 });
 
 app.get('/media/:nombre', function(req, res) {
-  console.log("PERFE");
   var song = path.join(__dirname, 'media', req.params.nombre);
   mediaserver.pipe(req, res, song);
 });
