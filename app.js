@@ -33,14 +33,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
 app.use(session({
   secret: process.env.SECRET || "cosamuysecreta",
-  store: store,
   resave: false,
   saveUninitialized: false,
   proxy: true,
   name: "MusIRAC",
   cookie: {
     secure: false,
-    maxAge: config.sessionExpiration || 60000
+    maxAge: process.env.SESSION_EXPIRATION || 60000
   }
 }));
 
