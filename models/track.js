@@ -14,7 +14,9 @@ track_id: {
 module.exports = function(sequelize, DataTypes) {
   	return sequelize.define('Tracks',
             { name:  DataTypes.STRING,
-              url: DataTypes.STRING,
+              urlMp3: DataTypes.STRING,
+			  urlOgg: DataTypes.STRING,
+			  urlM4a: DataTypes.STRING,
 		      image: DataTypes.STRING
             });
 }

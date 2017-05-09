@@ -1,10 +1,16 @@
 <div class="container track track_playing">
 	<img src="<%= track.image %>">
-	<p><%= track.name %></p>
-	<audio class="audio" src="<%= track.url %>" type="audio/mpeg" controls="controls"></audio>
+	<p>
+		<%= track.name %>
+	</p>
+	<audio class="audio" controls autoplay>
+		<source src="<%= track.urlOgg %>"  type="audio/ogg" />
+		<source src="<%= track.urlMp3 %>"  type="audio/mpeg" />
+		<source src="<%= track.urlM4a %>"  type="audio/aac" />
+	</audio>
 	<%if(session.user && (session.user.isAdmin || (session.user && track.UserId === session.user.id))){%>
 		<form method="post" action="/tracks/<%= track.id %>?_method=delete">
-		    <button class="btn btn-danger" type="submit" onClick="return confirm('Delete: <%=track.name%>. Are you sure? ');">Delete track</button>
+			<button class="btn btn-danger" type="submit" onClick="return confirm('Delete: <%=track.name%>. Are you sure? ');">Delete track</button>
 		</form>
-	<%}%>
+		<%}%>
 </div>

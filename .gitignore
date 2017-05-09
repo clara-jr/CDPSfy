@@ -7,3 +7,5 @@ track.sqlite
 \.vscode/
 
 sqlite
+
+public/media/
