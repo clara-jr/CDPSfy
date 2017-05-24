@@ -4,9 +4,9 @@
 		<%= track.name %>
 	</p>
 	<audio class="audio" controls autoplay>
+		<source src="<%= track.urlM4a %>"  type="audio/aac" />
 		<source src="<%= track.urlOgg %>"  type="audio/ogg" />
 		<source src="<%= track.urlMp3 %>"  type="audio/mpeg" />
-		<source src="<%= track.urlM4a %>"  type="audio/aac" />
 	</audio>
 	<%if(session.user && (session.user.isAdmin || (session.user && track.UserId === session.user.id))){%>
 		<form method="post" action="/tracks/<%= track.id %>?_method=delete">
