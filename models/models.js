@@ -71,25 +71,25 @@ sequelize.sync().then(function() {
               Tracks.bulkCreate( 
                   [ {
                       name: 'Cute',
-                      url: '/media/Cute.mp3',
+                      urlMp3: '/media/Cute.mp3',
                       image: '/images/quaver3.png',
                       UserId: '1'
                     },
                     {
                       name: 'Dubstep',
-                      url: '/media/Dubstep.mp3',
+                      urlMp3: '/media/Dubstep.mp3',
                       image: '/images/quaver3.png',
                       UserId: '1'
                     },
                     {
                       name: 'Epic',
-                      url: '/media/Epic.mp3',
+                      urlMp3: '/media/Epic.mp3',
                       image: '/images/quaver3.png',
                       UserId: '1'
                     },
                     {
                       name: 'Littleidea',
-                      url: '/media/Littleidea.mp3',
+                      urlMp3: '/media/Littleidea.mp3',
                       image: '/images/quaver3.png',
                       UserId: '1'
                     }
